@@ -10,7 +10,11 @@ import oop.models.entity.subject.SupportSubjectEntity;
 public class CountryEntity implements SupportSubjectEntity, ObjectionSubjectEntity, CancellationSubjectEntity,
         HostingObjectEntity, SupportObjectEntity, ObjectionObjectEntity {
     public enum Continent {
-        ASIA, EUROPE, NORTH_AMERICA, SOUTH_AMERICA, AFRICA, ARTANTICA
+        ASIA, EUROPE, NORTH_AMERICA, SOUTH_AMERICA, AFRICA, ARTANTICA;
+
+        public static Continent fromId(int id) {
+            return values()[id];
+        }
     }
 
     public String getId() {

@@ -1,6 +1,11 @@
 package oop;
 
-import com.arangodb.ArangoDB;
+import java.util.ArrayList;
+import java.util.List;
+
+import oop.controllers.dao.Dao;
+import oop.controllers.dao.EntityDao;
+import oop.models.entity.Entity;
 
 /**
  * Hello world!
@@ -8,16 +13,9 @@ import com.arangodb.ArangoDB;
  */
 public class App {
     public static void main(String[] args) {
-        ArangoDB arangoDB = new ArangoDB.Builder()
-            .user("root")
-            .password("admin")    
-            .build();
-        String dbName = "mydb";
-        try {
-            arangoDB.createDatabase(dbName);
-            System.out.println("Database created: " + dbName);
-        } catch (Exception e) {
-            System.err.println("Failed to create database " + dbName + "; " + e.getMessage());
-        }
+        EntityDao entityDao = EntityDao.getInstance();
+        List<Entity> result = entityDao.get(new ArrayList<String>());
+        System.out.print(result);
+        Dao.closeConnection();
     }
 }
