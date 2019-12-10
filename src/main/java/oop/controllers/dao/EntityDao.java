@@ -2,8 +2,9 @@ package oop.controllers.dao;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +62,7 @@ public class EntityDao extends Dao<Entity> {
         for (BaseDocument document : documents.getDocuments()) {
             results.add(this.fromBaseDocument(document));
         }
-        return null;
+        return results;
     }
 
     @Override
@@ -113,14 +114,14 @@ public class EntityDao extends Dao<Entity> {
             return null;
         Map<String, Object> propertiesMap = baseDocument.getProperties();
         String className = (String) propertiesMap.get("ClassName");
-        if (className == AGREEMENT_CLASS_NAME) {
+        if (AGREEMENT_CLASS_NAME.equals(className)) {
             AgreementEntity result = new AgreementEntity();
             result.setId((String) propertiesMap.get("Id"));
             result.setContent((String) propertiesMap.get("Content"));
             result.setLabel((String) propertiesMap.get("Label"));
             return result;
         }
-        if (className == COUNTRY_CLASS_NAME) {
+        if (COUNTRY_CLASS_NAME.equals(className)) {
             CountryEntity result = new CountryEntity();
             result.setId((String) propertiesMap.get("Id"));
             result.setContent((String) propertiesMap.get("Content"));
@@ -128,14 +129,14 @@ public class EntityDao extends Dao<Entity> {
             result.setContinent(CountryEntity.Continent.fromId((int) propertiesMap.get("Continent")));
             return result;
         }
-        if (className == EVENT_CLASS_NAME) {
+        if (EVENT_CLASS_NAME.equals(className)) {
             EventEntity result = new EventEntity();
             result.setId((String) propertiesMap.get("Id"));
             result.setContent((String) propertiesMap.get("Content"));
             result.setLabel((String) propertiesMap.get("Label"));
             return result;
         }
-        if (className == LOCATION_CLASS_NAME) {
+        if (LOCATION_CLASS_NAME.equals(className)) {
             LocationEntity result = new LocationEntity();
             result.setId((String) propertiesMap.get("Id"));
             result.setContent((String) propertiesMap.get("Content"));
@@ -144,7 +145,7 @@ public class EntityDao extends Dao<Entity> {
             result.setLongitude((double) propertiesMap.get("Longitude"));
             return result;
         }
-        if (className == ORGANIZATION_CLASS_NAME) {
+        if (ORGANIZATION_CLASS_NAME.equals(className)) {
             OrganizationEntity result = new OrganizationEntity();
             result.setId((String) propertiesMap.get("Id"));
             result.setContent((String) propertiesMap.get("Content"));
@@ -153,22 +154,35 @@ public class EntityDao extends Dao<Entity> {
             result.setBaseOfOperation((String) propertiesMap.get("BaseOfOperation"));
             return result;
         }
-        if (className == PERSON_CLASS_NAME) {
+        DateFormat dateFormat = new SimpleDateFormat();
+        if (PERSON_CLASS_NAME.equals(className)) {
             PersonEntity result = new PersonEntity();
             result.setId((String) propertiesMap.get("Id"));
             result.setContent((String) propertiesMap.get("Content"));
             result.setLabel((String) propertiesMap.get("Label"));
             result.setOccupation((String) propertiesMap.get("Occupation"));
-            result.setBirthday((Date) propertiesMap.get("Birthday"));
-            result.setDateOfDeath((Date) propertiesMap.get("DateOfDeath"));
+            try {
+                result.setBirthday(dateFormat.parse((String) propertiesMap.get("Birthday")));
+            } catch (Exception e) {
+                result.setBirthday(null);
+            }
+            try {
+                result.setDateOfDeath(dateFormat.parse((String) propertiesMap.get("DateOfDeath")));
+            } catch (Exception e) {
+                result.setDateOfDeath(null);
+            }
             return result;
         }
-        if (className == TIME_CLASS_NAME) {
+        if (TIME_CLASS_NAME.equals(className)) {
             TimeEntity result = new TimeEntity();
             result.setId((String) propertiesMap.get("Id"));
             result.setContent((String) propertiesMap.get("Content"));
             result.setLabel((String) propertiesMap.get("Label"));
-            result.setTime((Date) propertiesMap.get("Time"));
+            try {
+                result.setTime(dateFormat.parse((String) propertiesMap.get("Time")));
+            } catch (Exception e) {
+                result.setTime(null);
+            }
             return result;
         }
         return null;
@@ -181,7 +195,7 @@ public class EntityDao extends Dao<Entity> {
         propertiesMap.put("ClassName", entity.getClass().getName());
         for (Method method : entity.getClass().getMethods()) {
             String methodName = method.getName();
-            if (!methodName.startsWith("get"))
+            if (!methodName.startsWith("get") || "getClass".equals(methodName))
                 continue;
             String property = methodName.substring(3);
             try {

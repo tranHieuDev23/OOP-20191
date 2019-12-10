@@ -1,52 +1,41 @@
 package oop.models.fact.impl;
 
-import oop.models.article.Article;
 import oop.models.entity.object.ObjectionObjectEntity;
 import oop.models.entity.subject.ObjectionSubjectEntity;
 import oop.models.fact.Fact;
 
 public class ObjectionFact implements Fact<ObjectionSubjectEntity, ObjectionObjectEntity> {
+    private ObjectionSubjectEntity subject;
+    private ObjectionObjectEntity object;
+    private int originId;
 
     @Override
     public ObjectionSubjectEntity getSubject() {
-        
-        return null;
+        return subject;
     }
 
     @Override
     public void setSubject(ObjectionSubjectEntity subject) {
-        
-
+        this.subject = subject;
     }
 
     @Override
     public ObjectionObjectEntity getObject() {
-        
-        return null;
+        return object;
     }
 
     @Override
     public void setObject(ObjectionObjectEntity object) {
-        
-
+        this.object = object;
     }
 
     @Override
-    public String getType() {
-        
-        return null;
+    public int getOriginId() {
+        return originId;
     }
 
     @Override
-    public Article getOrigin() {
-        
-        return null;
+    public void setOriginId(int originId) {
+        this.originId = originId;
     }
-
-    @Override
-    public void setOrigin(Article origin) {
-        
-
-    }
-
 }

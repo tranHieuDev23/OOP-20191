@@ -5,43 +5,49 @@ import oop.models.entity.subject.AttendingSubjectEntity;
 import oop.models.entity.subject.OrganizingSubjectEntity;
 
 public class OrganizationEntity implements OrganizingSubjectEntity, AttendingSubjectEntity, AttendingObjectEntity {
+    private String id;
+    private String label;
+    private String content;
+    private String field;
+    private String baseOfOperation;
+
     public String getId() {
-        return null;
+        return id;
     }
 
     public void setId(String id) {
-
+        this.id = id;
     }
 
     public String getLabel() {
-        return null;
+        return label;
     }
 
     public void setLabel(String label) {
-
+        this.label = label;
     }
 
     public String getContent() {
-        return null;
+        return content;
     }
 
     public void setContent(String content) {
-
+        this.content = content;
     }
 
     public String getField() {
-        return null;
+        return field;
     }
 
     public void setField(String field) {
-
+        this.field = field;
     }
 
     public String getBaseOfOperation() {
-        return null;
+        return baseOfOperation;
     }
 
     public void setBaseOfOperation(String baseOfOperation) {
-
+        this.baseOfOperation = baseOfOperation;
     }
 }

@@ -1,52 +1,41 @@
 package oop.models.fact.impl;
 
-import oop.models.article.Article;
 import oop.models.entity.impl.EventEntity;
 import oop.models.entity.subject.OrganizingSubjectEntity;
 import oop.models.fact.Fact;
 
 public class OrganizingFact implements Fact<OrganizingSubjectEntity, EventEntity> {
+    private OrganizingSubjectEntity subject;
+    private EventEntity object;
+    private int originId;
 
     @Override
     public OrganizingSubjectEntity getSubject() {
-        
-        return null;
+        return subject;
     }
 
     @Override
     public void setSubject(OrganizingSubjectEntity subject) {
-        
-
+        this.subject = subject;
     }
 
     @Override
     public EventEntity getObject() {
-        
-        return null;
+        return object;
     }
 
     @Override
     public void setObject(EventEntity object) {
-        
-
+        this.object = object;
     }
 
     @Override
-    public String getType() {
-        
-        return null;
+    public int getOriginId() {
+        return originId;
     }
 
     @Override
-    public Article getOrigin() {
-        
-        return null;
+    public void setOriginId(int originId) {
+        this.originId = originId;
     }
-
-    @Override
-    public void setOrigin(Article origin) {
-        
-
-    }
-
 }

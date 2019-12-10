@@ -17,35 +17,40 @@ public class CountryEntity implements SupportSubjectEntity, ObjectionSubjectEnti
         }
     }
 
+    private String id;
+    private String label;
+    private String content;
+    private Continent continent;
+
     public String getId() {
-        return null;
+        return id;
     }
 
     public void setId(String id) {
-
+        this.id = id;
     }
 
     public String getLabel() {
-        return null;
+        return label;
     }
 
     public void setLabel(String label) {
-
+        this.label = label;
     }
 
     public String getContent() {
-        return null;
+        return content;
     }
 
     public void setContent(String content) {
-        
+        this.content = content;
     }
 
     public Continent getContinent() {
-        return null;
+        return continent;
     }
 
     public void setContinent(Continent continent) {
-
+        this.continent = continent;
     }
 }

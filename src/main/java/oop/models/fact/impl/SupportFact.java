@@ -1,52 +1,41 @@
 package oop.models.fact.impl;
 
-import oop.models.article.Article;
 import oop.models.entity.object.SupportObjectEntity;
 import oop.models.entity.subject.SupportSubjectEntity;
 import oop.models.fact.Fact;
 
 public class SupportFact implements Fact<SupportSubjectEntity, SupportObjectEntity> {
+    private SupportSubjectEntity subject;
+    private SupportObjectEntity object;
+    private int originId;
 
     @Override
     public SupportSubjectEntity getSubject() {
-        
-        return null;
+        return subject;
     }
 
     @Override
     public void setSubject(SupportSubjectEntity subject) {
-        
-
+        this.subject = subject;
     }
 
     @Override
     public SupportObjectEntity getObject() {
-        
-        return null;
+        return object;
     }
 
     @Override
     public void setObject(SupportObjectEntity object) {
-        
-
+        this.object = object;
     }
 
     @Override
-    public String getType() {
-        
-        return null;
+    public int getOriginId() {
+        return originId;
     }
 
     @Override
-    public Article getOrigin() {
-        
-        return null;
+    public void setOriginId(int originId) {
+        this.originId = originId;
     }
-
-    @Override
-    public void setOrigin(Article origin) {
-        
-
-    }
-
 }

@@ -1,51 +1,41 @@
 package oop.models.fact.impl;
 
-import oop.models.article.Article;
 import oop.models.entity.impl.EventEntity;
 import oop.models.entity.object.HostingObjectEntity;
 import oop.models.fact.Fact;
 
 public class HostingFact implements Fact<EventEntity, HostingObjectEntity> {
+    private EventEntity subject;
+    private HostingObjectEntity object;
+    private int originId;
 
     @Override
     public EventEntity getSubject() {
-        
-        return null;
+        return subject;
     }
 
     @Override
     public void setSubject(EventEntity subject) {
-        
-
+        this.subject = subject;
     }
 
     @Override
     public HostingObjectEntity getObject() {
-        
-        return null;
+        return object;
     }
 
     @Override
     public void setObject(HostingObjectEntity object) {
-        
-
+        this.object = object;
     }
 
     @Override
-    public String getType() {
-        
-        return null;
+    public int getOriginId() {
+        return originId;
     }
 
     @Override
-    public Article getOrigin() {
-        
-        return null;
-    }
-
-    @Override
-    public void setOrigin(Article origin) {
-        
-
+    public void setOriginId(int originId) {
+        this.originId = originId;
     }
 }

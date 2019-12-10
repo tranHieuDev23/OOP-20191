@@ -3,43 +3,49 @@ package oop.models.entity.impl;
 import oop.models.entity.object.HostingObjectEntity;
 
 public class LocationEntity implements HostingObjectEntity {
+    private String id;
+    private String label;
+    private String content;
+    private double latitude;
+    private double longitude;
+
     public String getId() {
-        return null;
+        return id;
     }
 
     public void setId(String id) {
-
+        this.id = id;
     }
 
     public String getLabel() {
-        return null;
+        return label;
     }
 
     public void setLabel(String label) {
-
+        this.label = label;
     }
 
     public String getContent() {
-        return null;
+        return content;
     }
 
     public void setContent(String content) {
-
+        this.content = content;
     }
 
     public double getLongitude() {
-        return 0.0;
+        return longitude;
     }
 
     public void setLongitude(double longitude) {
-
+        this.longitude = longitude;
     }
 
     public double getLatitude() {
-        return 0.0;
+        return latitude;
     }
 
     public void setLatitude(double latitude) {
-
+        this.latitude = latitude;
     }
 }

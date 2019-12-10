@@ -1,51 +1,40 @@
 package oop.models.fact.impl;
 
-import oop.models.article.Article;
 import oop.models.entity.impl.CountryEntity;
 import oop.models.fact.Fact;
 
 public class AgreementFact implements Fact<CountryEntity, CountryEntity> {
+    private CountryEntity subject;
+    private CountryEntity object;
+    private int originId;
 
     @Override
     public CountryEntity getSubject() {
-        
-        return null;
+        return subject;
     }
 
     @Override
     public void setSubject(CountryEntity subject) {
-        
-
+        this.subject = subject;
     }
 
     @Override
     public CountryEntity getObject() {
-        
-        return null;
+        return object;
     }
 
     @Override
     public void setObject(CountryEntity object) {
-        
-
+        this.object = object;
     }
 
     @Override
-    public String getType() {
-        
-        return null;
+    public int getOriginId() {
+        return originId;
     }
 
     @Override
-    public Article getOrigin() {
-        
-        return null;
+    public void setOriginId(int originId) {
+        this.originId = originId;
     }
-
-    @Override
-    public void setOrigin(Article origin) {
-        
-
-    }
-
 }

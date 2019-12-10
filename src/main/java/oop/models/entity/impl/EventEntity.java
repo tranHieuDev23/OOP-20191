@@ -7,27 +7,31 @@ import oop.models.entity.object.SupportObjectEntity;
 
 public class EventEntity
         implements AttendingObjectEntity, SupportObjectEntity, ObjectionObjectEntity, CancellationObjectEntity {
+    private String id;
+    private String label;
+    private String content;
+
     public String getId() {
-        return null;
+        return id;
     }
 
     public void setId(String id) {
-
+        this.id = id;
     }
 
     public String getLabel() {
-        return null;
+        return label;
     }
 
     public void setLabel(String label) {
-
+        this.label = label;
     }
 
     public String getContent() {
-        return null;
+        return content;
     }
 
     public void setContent(String content) {
-
+        this.content = content;
     }
 }

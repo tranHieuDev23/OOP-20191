@@ -1,52 +1,41 @@
 package oop.models.fact.impl;
 
-import oop.models.article.Article;
 import oop.models.entity.impl.EventEntity;
 import oop.models.entity.impl.PersonEntity;
 import oop.models.fact.Fact;
 
 public class AnnouncingFact implements Fact<PersonEntity, EventEntity> {
+    private PersonEntity subject;
+    private EventEntity object;
+    private int originId;
 
     @Override
     public PersonEntity getSubject() {
-        
-        return null;
+        return subject;
     }
 
     @Override
     public void setSubject(PersonEntity subject) {
-        
-
+        this.subject = subject;
     }
 
     @Override
     public EventEntity getObject() {
-        
-        return null;
+        return object;
     }
 
     @Override
     public void setObject(EventEntity object) {
-        
-
+        this.object = object;
     }
 
     @Override
-    public String getType() {
-        
-        return null;
+    public int getOriginId() {
+        return originId;
     }
 
     @Override
-    public Article getOrigin() {
-        
-        return null;
+    public void setOriginId(int originId) {
+        this.originId = originId;
     }
-
-    @Override
-    public void setOrigin(Article origin) {
-        
-
-    }
-    
 }

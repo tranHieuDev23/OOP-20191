@@ -1,52 +1,41 @@
 package oop.models.fact.impl;
 
-import oop.models.article.Article;
 import oop.models.entity.object.AttendingObjectEntity;
 import oop.models.entity.subject.AttendingSubjectEntity;
 import oop.models.fact.Fact;
 
 public class AttendingFact implements Fact<AttendingSubjectEntity, AttendingObjectEntity> {
+    private AttendingSubjectEntity subject;
+    private AttendingObjectEntity object;
+    private int originId;
 
     @Override
     public AttendingSubjectEntity getSubject() {
-        
-        return null;
+        return subject;
     }
 
     @Override
     public void setSubject(AttendingSubjectEntity subject) {
-        
-
+        this.subject = subject;
     }
 
     @Override
     public AttendingObjectEntity getObject() {
-        
-        return null;
+        return object;
     }
 
     @Override
     public void setObject(AttendingObjectEntity object) {
-        
-
+        this.object = object;
     }
 
     @Override
-    public String getType() {
-        
-        return null;
+    public int getOriginId() {
+        return originId;
     }
 
     @Override
-    public Article getOrigin() {
-        
-        return null;
+    public void setOriginId(int originId) {
+        this.originId = originId;
     }
-
-    @Override
-    public void setOrigin(Article origin) {
-        
-
-    }
-
 }

@@ -1,49 +1,40 @@
 package oop.models.fact.impl;
 
-import oop.models.article.Article;
 import oop.models.entity.impl.PersonEntity;
 import oop.models.fact.Fact;
 
 public class MeetingFact implements Fact<PersonEntity, PersonEntity> {
+    private PersonEntity subject;
+    private PersonEntity object;
+    private int originId;
 
     @Override
     public PersonEntity getSubject() {
-        
-        return null;
+        return subject;
     }
 
     @Override
     public void setSubject(PersonEntity subject) {
-        
-
+        this.subject = subject;
     }
 
     @Override
     public PersonEntity getObject() {
-        
-        return null;
+        return object;
     }
 
     @Override
     public void setObject(PersonEntity object) {
-        
-
+        this.object = object;
     }
 
     @Override
-    public String getType() {
-        return "MeetingFact";
+    public int getOriginId() {
+        return originId;
     }
 
     @Override
-    public Article getOrigin() {
-        
-        return null;
-    }
-
-    @Override
-    public void setOrigin(Article origin) {
-        
-
+    public void setOriginId(int originId) {
+        this.originId = originId;
     }
 }
