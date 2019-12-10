@@ -5,9 +5,20 @@ import oop.models.entity.object.HostingObjectEntity;
 import oop.models.fact.Fact;
 
 public class HostingFact implements Fact<EventEntity, HostingObjectEntity> {
+    private String id;
     private EventEntity subject;
     private HostingObjectEntity object;
-    private int originId;
+    private String originId;
+
+    @Override 
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Override
     public EventEntity getSubject() {
@@ -30,12 +41,12 @@ public class HostingFact implements Fact<EventEntity, HostingObjectEntity> {
     }
 
     @Override
-    public int getOriginId() {
+    public String getOriginId() {
         return originId;
     }
 
     @Override
-    public void setOriginId(int originId) {
+    public void setOriginId(String originId) {
         this.originId = originId;
     }
 }

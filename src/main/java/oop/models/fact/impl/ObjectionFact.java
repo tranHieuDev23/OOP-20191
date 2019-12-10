@@ -5,9 +5,20 @@ import oop.models.entity.subject.ObjectionSubjectEntity;
 import oop.models.fact.Fact;
 
 public class ObjectionFact implements Fact<ObjectionSubjectEntity, ObjectionObjectEntity> {
+    private String id;
     private ObjectionSubjectEntity subject;
     private ObjectionObjectEntity object;
-    private int originId;
+    private String originId;
+
+    @Override 
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Override
     public ObjectionSubjectEntity getSubject() {
@@ -30,12 +41,12 @@ public class ObjectionFact implements Fact<ObjectionSubjectEntity, ObjectionObje
     }
 
     @Override
-    public int getOriginId() {
+    public String getOriginId() {
         return originId;
     }
 
     @Override
-    public void setOriginId(int originId) {
+    public void setOriginId(String originId) {
         this.originId = originId;
     }
 }

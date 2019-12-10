@@ -23,13 +23,13 @@ import oop.models.entity.impl.TimeEntity;
 
 public class EntityDao extends Dao<Entity> {
     private static final String ENTITY_COLLECTION_NAME = "ENTITIES";
-    private static final String AGREEMENT_CLASS_NAME = AgreementEntity.class.getName();
-    private static final String COUNTRY_CLASS_NAME = CountryEntity.class.getName();
-    private static final String EVENT_CLASS_NAME = EventEntity.class.getName();
-    private static final String LOCATION_CLASS_NAME = LocationEntity.class.getName();
-    private static final String ORGANIZATION_CLASS_NAME = OrganizationEntity.class.getName();
-    private static final String PERSON_CLASS_NAME = PersonEntity.class.getName();
-    private static final String TIME_CLASS_NAME = TimeEntity.class.getName();
+    private static final String AGREEMENT_CLASS_NAME = AgreementEntity.class.getTypeName();
+    private static final String COUNTRY_CLASS_NAME = CountryEntity.class.getTypeName();
+    private static final String EVENT_CLASS_NAME = EventEntity.class.getTypeName();
+    private static final String LOCATION_CLASS_NAME = LocationEntity.class.getTypeName();
+    private static final String ORGANIZATION_CLASS_NAME = OrganizationEntity.class.getTypeName();
+    private static final String PERSON_CLASS_NAME = PersonEntity.class.getTypeName();
+    private static final String TIME_CLASS_NAME = TimeEntity.class.getTypeName();
 
     private EntityDao() {
         super(ENTITY_COLLECTION_NAME);

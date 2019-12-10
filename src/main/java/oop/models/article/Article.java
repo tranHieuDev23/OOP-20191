@@ -10,7 +10,7 @@ public class Article {
     private String id;
     private String url;
     private Date publishedDate;
-    private List<Fact<Entity, Entity>> extractedFacts;
+    private List<Fact<? extends Entity, ? extends Entity>> extractedFacts;
 
     public String getId() {
         return id;
@@ -36,11 +36,11 @@ public class Article {
         this.publishedDate = publishedDate;
     }
 
-    public List<Fact<Entity, Entity>> getExtractedFacts() {
+    public List<Fact<? extends Entity, ? extends Entity>> getExtractedFacts() {
         return this.extractedFacts;
     }
 
-    public void setExtractedFacts(List<Fact<Entity, Entity>> extractedFacts) {
+    public void setExtractedFacts(List<Fact<? extends Entity, ? extends Entity>> extractedFacts) {
         this.extractedFacts = extractedFacts;
     }
 }

@@ -4,9 +4,20 @@ import oop.models.entity.impl.CountryEntity;
 import oop.models.fact.Fact;
 
 public class TensionFact implements Fact<CountryEntity, CountryEntity> {
+    private String id;
     private CountryEntity subject;
     private CountryEntity object;
-    private int originId;
+    private String originId;
+
+    @Override 
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Override
     public CountryEntity getSubject() {
@@ -29,12 +40,12 @@ public class TensionFact implements Fact<CountryEntity, CountryEntity> {
     }
 
     @Override
-    public int getOriginId() {
+    public String getOriginId() {
         return originId;
     }
 
     @Override
-    public void setOriginId(int originId) {
+    public void setOriginId(String originId) {
         this.originId = originId;
     }
 }

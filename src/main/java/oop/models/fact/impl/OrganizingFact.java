@@ -5,9 +5,20 @@ import oop.models.entity.subject.OrganizingSubjectEntity;
 import oop.models.fact.Fact;
 
 public class OrganizingFact implements Fact<OrganizingSubjectEntity, EventEntity> {
+    private String id;
     private OrganizingSubjectEntity subject;
     private EventEntity object;
-    private int originId;
+    private String originId;
+
+    @Override 
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Override
     public OrganizingSubjectEntity getSubject() {
@@ -30,12 +41,12 @@ public class OrganizingFact implements Fact<OrganizingSubjectEntity, EventEntity
     }
 
     @Override
-    public int getOriginId() {
+    public String getOriginId() {
         return originId;
     }
 
     @Override
-    public void setOriginId(int originId) {
+    public void setOriginId(String originId) {
         this.originId = originId;
     }
 }

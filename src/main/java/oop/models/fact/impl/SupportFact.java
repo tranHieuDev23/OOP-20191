@@ -5,9 +5,20 @@ import oop.models.entity.subject.SupportSubjectEntity;
 import oop.models.fact.Fact;
 
 public class SupportFact implements Fact<SupportSubjectEntity, SupportObjectEntity> {
+    private String id;
     private SupportSubjectEntity subject;
     private SupportObjectEntity object;
-    private int originId;
+    private String originId;
+
+    @Override 
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Override
     public SupportSubjectEntity getSubject() {
@@ -30,12 +41,12 @@ public class SupportFact implements Fact<SupportSubjectEntity, SupportObjectEnti
     }
 
     @Override
-    public int getOriginId() {
+    public String getOriginId() {
         return originId;
     }
 
     @Override
-    public void setOriginId(int originId) {
+    public void setOriginId(String originId) {
         this.originId = originId;
     }
 }
