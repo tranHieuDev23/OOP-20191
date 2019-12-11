@@ -7,39 +7,36 @@ import com.arangodb.ArangoDB;
 import com.arangodb.ArangoDatabase;
 
 public abstract class Dao<T> {
-    private static final String ARANGO_USERNAME = "root";
-    private static final String ARANGO_PASSWORD = "admin";
     private static final String ARANGO_DB = "oop_db";
 
     private static ArangoDB arangoDB = null;
     private static ArangoDatabase arangoDatabase = null;
 
-    private static ArangoDB getArangoDB() {
-        if (arangoDB == null) {
-            arangoDB = new ArangoDB.Builder().user(ARANGO_USERNAME).password(ARANGO_PASSWORD).build();
-        }
-        return arangoDB;
+    public static void connect(String user, String password) {
+        arangoDB = new ArangoDB.Builder().user(user).password(password).build();
+        arangoDatabase = arangoDB.db(ARANGO_DB);
     }
 
     private static ArangoDatabase getDatabase() {
-        if (arangoDatabase == null) {
-            arangoDatabase = getArangoDB().db(ARANGO_DB);
-            if (!arangoDatabase.exists()) {
-                try {
-                    getArangoDB().createDatabase(ARANGO_DB);
-                    arangoDatabase = getArangoDB().db(ARANGO_DB);
-                } catch (Exception e) {
-                    throw new RuntimeException("Exception happened during database initialization!", e);
-                }
+        if (!arangoDatabase.exists()) {
+            try {
+                arangoDB.createDatabase(ARANGO_DB);
+                arangoDatabase = arangoDB.db(ARANGO_DB);
+            } catch (Exception e) {
+                throw new RuntimeException("Exception happened during database initialization!", e);
             }
         }
         return arangoDatabase;
     }
 
-    public static void closeConnection() {
+    public static void closeConnection() throws RuntimeException {
         if (arangoDB != null) {
-            arangoDB.shutdown();
-            arangoDB = null;
+            try {
+                arangoDB.shutdown();
+                arangoDB = null;
+            } catch (Exception e) {
+                new RuntimeException("Exception happened while closing connection!", e);
+            }
         }
     }
 
@@ -59,19 +56,19 @@ public abstract class Dao<T> {
 
     public abstract boolean exists(String id);
 
-    public abstract T get(String id);
+    public abstract T get(String id) throws RuntimeException;
 
-    public abstract List<T> get(List<String> id);
+    public abstract List<T> get(List<String> id) throws RuntimeException;
 
-    public abstract void insert(T value);
+    public abstract void insert(T value) throws RuntimeException;
 
-    public abstract void insert(List<T> values);
+    public abstract void insert(List<T> values) throws RuntimeException;
 
-    public abstract void replace(String id, T value);
+    public abstract void replace(String id, T value) throws RuntimeException;
 
-    public abstract void replace(List<String> ids, List<T> values);
+    public abstract void replace(List<String> ids, List<T> values) throws RuntimeException;
 
-    public abstract void delete(String id);
+    public abstract void delete(String id) throws RuntimeException;
 
-    public abstract void delete(List<String> ids);
+    public abstract void delete(List<String> ids) throws RuntimeException;
 }

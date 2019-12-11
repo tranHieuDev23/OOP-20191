@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import oop.controllers.dao.ArticleDao;
 import oop.controllers.dao.Dao;
 import oop.controllers.dao.EntityDao;
 import oop.controllers.dao.FactDao;
+import oop.models.article.Article;
 import oop.models.entity.Entity;
 import oop.models.entity.impl.PersonEntity;
 import oop.models.fact.Fact;
@@ -17,10 +19,14 @@ import oop.models.fact.impl.MeetingFact;
  *
  */
 public class App {
+    private static final String ARANGO_USERNAME = "root";
+    private static final String ARANGO_PASSWORD = "admin";
+
     public static void main(String[] args) {
+        Dao.connect(ARANGO_USERNAME, ARANGO_PASSWORD);
         EntityDao entityDao = EntityDao.getInstance();
         FactDao factDao = FactDao.getInstance();
-        List<Entity> entities = new ArrayList<>();
+        ArticleDao articleDao = ArticleDao.getInstance();
 
         PersonEntity son = new PersonEntity();
         son.setId("1");
@@ -44,22 +50,42 @@ public class App {
         fact.setObject(father);
         fact.setOriginId("1");
 
-        entities.add(son);
-        entities.add(father);
-        entityDao.insert(entities);
-        factDao.insert(fact);
+        List<Fact<? extends Entity, ? extends Entity>> facts = new ArrayList<>();
+        facts.add(fact);
+
+        Article article = new Article();
+        article.setId("1");
+        article.setPublishedDate(new Date());
+        article.setUrl("https://facebook.com");
+        article.setExtractedFacts(facts);
+
+        try {
+            entityDao.insert(son);
+            entityDao.insert(father);
+            factDao.insert(facts);
+            articleDao.insert(article);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         List<String> ids = new ArrayList<>();
         ids.add("1");
         ids.add("2");
         List<Entity> results = entityDao.get(ids);
-        System.out.print(results);
+        System.out.println(results);
 
-        List<String> factIds = new ArrayList<>();
-        factIds.add("1");
-        List<Fact<? extends Entity, ? extends Entity>> factResults = factDao.get(factIds);
-        System.out.print(factResults);
-        
+        Fact<? extends Entity, ? extends Entity> resultFact = factDao.get(fact.getId());
+        System.out.println(resultFact.getId());
+        System.out.println(resultFact.getOriginId());
+        System.out.println(resultFact.getObject());
+        System.out.println(resultFact.getSubject());
+
+        Article resultArticle = articleDao.get("1");
+        System.out.println(resultArticle.getId());
+        System.out.println(resultArticle.getUrl());
+        System.out.println(resultArticle.getPublishedDate());
+        System.out.println(resultArticle.getExtractedFacts());
+
         Dao.closeConnection();
     }
 }

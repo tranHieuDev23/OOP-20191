@@ -50,14 +50,24 @@ public class EntityDao extends Dao<Entity> {
     }
 
     @Override
-    public Entity get(String id) {
-        BaseDocument document = this.collection.getDocument(id, BaseDocument.class);
+    public Entity get(String id) throws RuntimeException {
+        BaseDocument document;
+        try {
+            document = this.collection.getDocument(id, BaseDocument.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while reading from database!", e);
+        }
         return fromBaseDocument(document);
     }
 
     @Override
     public List<Entity> get(List<String> ids) {
-        MultiDocumentEntity<BaseDocument> documents = this.collection.getDocuments(ids, BaseDocument.class);
+        MultiDocumentEntity<BaseDocument> documents;
+        try {
+            documents = this.collection.getDocuments(ids, BaseDocument.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while reading from database!", e);
+        }
         List<Entity> results = new ArrayList<>(documents.getDocuments().size());
         for (BaseDocument document : documents.getDocuments()) {
             results.add(this.fromBaseDocument(document));
@@ -66,47 +76,71 @@ public class EntityDao extends Dao<Entity> {
     }
 
     @Override
-    public void insert(Entity value) {
-        this.collection.insertDocument(fromEntity(value));
+    public void insert(Entity value) throws RuntimeException {
+        try {
+            this.collection.insertDocument(fromEntity(value));
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while writing to database!", e);
+        }
     }
 
     @Override
-    public void insert(List<Entity> values) {
+    public void insert(List<Entity> values) throws RuntimeException {
         List<BaseDocument> documents = new ArrayList<>(values.size());
         for (Entity entity : values) {
             documents.add(fromEntity(entity));
         }
-        this.collection.insertDocuments(documents);
+        try {
+            this.collection.insertDocuments(documents);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while writing to database!", e);
+        }
     }
 
     @Override
-    public void replace(String id, Entity value) {
-        this.collection.replaceDocument(id, fromEntity(value));
+    public void replace(String id, Entity value) throws RuntimeException {
+        try {
+            this.collection.replaceDocument(id, fromEntity(value));
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while writing to database!", e);
+        }
     }
 
     @Override
-    public void replace(List<String> ids, List<Entity> values) {
+    public void replace(List<String> ids, List<Entity> values) throws RuntimeException {
         List<BaseDocument> documents = new ArrayList<>(values.size());
         for (Entity entity : values) {
             documents.add(fromEntity(entity));
         }
-        this.collection.replaceDocuments(documents);
+        try {
+            this.collection.replaceDocuments(documents);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while writing to database!", e);
+        }
     }
 
     @Override
-    public void delete(String id) {
-        this.collection.deleteDocument(id);
+    public void delete(String id) throws RuntimeException {
+        try {
+            this.collection.deleteDocument(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while deleting from database!", e);
+        }
     }
 
     @Override
-    public void delete(List<String> ids) {
+    public void delete(List<String> ids) throws RuntimeException {
         List<BaseDocument> documents = new ArrayList<>(ids.size());
         for (String id : ids) {
             BaseDocument document = new BaseDocument();
             document.setKey(id);
             documents.add(document);
         }
-        this.collection.deleteDocuments(documents);
+        try {
+            this.collection.deleteDocuments(documents);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while deleting from database!", e);
+        }
     }
 
     private Entity fromBaseDocument(BaseDocument baseDocument) {

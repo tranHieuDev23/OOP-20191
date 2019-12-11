@@ -73,13 +73,13 @@ public class FactDao extends Dao<Fact<? extends Entity, ? extends Entity>> {
     }
 
     @Override
-    public Fact<? extends Entity, ? extends Entity> get(String id) {
+    public Fact<? extends Entity, ? extends Entity> get(String id) throws RuntimeException {
         BaseDocument document = this.collection.getDocument(id, BaseDocument.class);
         return fromBaseDocument(document);
     }
 
     @Override
-    public List<Fact<? extends Entity, ? extends Entity>> get(List<String> ids) {
+    public List<Fact<? extends Entity, ? extends Entity>> get(List<String> ids) throws RuntimeException {
         MultiDocumentEntity<BaseDocument> documents = this.collection.getDocuments(ids, BaseDocument.class);
         List<Fact<? extends Entity, ? extends Entity>> results = new ArrayList<>(documents.getDocuments().size());
         for (BaseDocument document : documents.getDocuments()) {
@@ -89,12 +89,12 @@ public class FactDao extends Dao<Fact<? extends Entity, ? extends Entity>> {
     }
 
     @Override
-    public void insert(Fact<? extends Entity, ? extends Entity> value) {
+    public void insert(Fact<? extends Entity, ? extends Entity> value) throws RuntimeException {
         this.collection.insertDocument(fromFact(value));
     }
 
     @Override
-    public void insert(List<Fact<? extends Entity, ? extends Entity>> values) {
+    public void insert(List<Fact<? extends Entity, ? extends Entity>> values) throws RuntimeException {
         List<BaseDocument> documents = new ArrayList<>(values.size());
         for (Fact<? extends Entity, ? extends Entity> facts : values) {
             documents.add(fromFact(facts));
@@ -103,12 +103,12 @@ public class FactDao extends Dao<Fact<? extends Entity, ? extends Entity>> {
     }
 
     @Override
-    public void replace(String id, Fact<? extends Entity, ? extends Entity> value) {
+    public void replace(String id, Fact<? extends Entity, ? extends Entity> value) throws RuntimeException {
         this.collection.replaceDocument(id, fromFact(value));
     }
 
     @Override
-    public void replace(List<String> ids, List<Fact<? extends Entity, ? extends Entity>> values) {
+    public void replace(List<String> ids, List<Fact<? extends Entity, ? extends Entity>> values) throws RuntimeException {
         List<BaseDocument> documents = new ArrayList<>(values.size());
         for (Fact<? extends Entity, ? extends Entity> fact : values) {
             documents.add(fromFact(fact));
@@ -117,12 +117,12 @@ public class FactDao extends Dao<Fact<? extends Entity, ? extends Entity>> {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(String id) throws RuntimeException {
         this.collection.deleteDocument(id);
     }
 
     @Override
-    public void delete(List<String> ids) {
+    public void delete(List<String> ids) throws RuntimeException {
         List<BaseDocument> documents = new ArrayList<>(ids.size());
         for (String id : ids) {
             BaseDocument document = new BaseDocument();
