@@ -74,13 +74,22 @@ public class FactDao extends Dao<Fact<? extends Entity, ? extends Entity>> {
 
     @Override
     public Fact<? extends Entity, ? extends Entity> get(String id) throws RuntimeException {
-        BaseDocument document = this.collection.getDocument(id, BaseDocument.class);
-        return fromBaseDocument(document);
+        try {
+            BaseDocument document = this.collection.getDocument(id, BaseDocument.class);
+            return fromBaseDocument(document);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while reading from database!", e);
+        }
     }
 
     @Override
     public List<Fact<? extends Entity, ? extends Entity>> get(List<String> ids) throws RuntimeException {
-        MultiDocumentEntity<BaseDocument> documents = this.collection.getDocuments(ids, BaseDocument.class);
+        MultiDocumentEntity<BaseDocument> documents;
+        try {
+            documents = this.collection.getDocuments(ids, BaseDocument.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while reading from database!", e);
+        }
         List<Fact<? extends Entity, ? extends Entity>> results = new ArrayList<>(documents.getDocuments().size());
         for (BaseDocument document : documents.getDocuments()) {
             results.add(this.fromBaseDocument(document));
@@ -90,7 +99,11 @@ public class FactDao extends Dao<Fact<? extends Entity, ? extends Entity>> {
 
     @Override
     public void insert(Fact<? extends Entity, ? extends Entity> value) throws RuntimeException {
-        this.collection.insertDocument(fromFact(value));
+        try {
+            this.collection.insertDocument(fromFact(value));
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while writing to database!", e);
+        }
     }
 
     @Override
@@ -99,26 +112,43 @@ public class FactDao extends Dao<Fact<? extends Entity, ? extends Entity>> {
         for (Fact<? extends Entity, ? extends Entity> facts : values) {
             documents.add(fromFact(facts));
         }
-        this.collection.insertDocuments(documents);
+        try {
+            this.collection.insertDocuments(documents);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while writing to database!", e);
+        }
     }
 
     @Override
     public void replace(String id, Fact<? extends Entity, ? extends Entity> value) throws RuntimeException {
-        this.collection.replaceDocument(id, fromFact(value));
+        try {
+            this.collection.replaceDocument(id, fromFact(value));
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while writing to database!", e);
+        }
     }
 
     @Override
-    public void replace(List<String> ids, List<Fact<? extends Entity, ? extends Entity>> values) throws RuntimeException {
+    public void replace(List<String> ids, List<Fact<? extends Entity, ? extends Entity>> values)
+            throws RuntimeException {
         List<BaseDocument> documents = new ArrayList<>(values.size());
         for (Fact<? extends Entity, ? extends Entity> fact : values) {
             documents.add(fromFact(fact));
         }
-        this.collection.replaceDocuments(documents);
+        try {
+            this.collection.replaceDocuments(documents);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while writing to database!", e);
+        }
     }
 
     @Override
     public void delete(String id) throws RuntimeException {
-        this.collection.deleteDocument(id);
+        try {
+            this.collection.deleteDocument(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while deleting from database!", e);
+        }
     }
 
     @Override
@@ -129,7 +159,11 @@ public class FactDao extends Dao<Fact<? extends Entity, ? extends Entity>> {
             document.setKey(id);
             documents.add(document);
         }
-        this.collection.deleteDocuments(documents);
+        try {
+            this.collection.deleteDocuments(documents);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while deleting from database!", e);
+        }
     }
 
     private Fact<? extends Entity, ? extends Entity> fromBaseDocument(BaseDocument baseDocument) {

@@ -17,7 +17,7 @@ public abstract class Dao<T> {
         arangoDatabase = arangoDB.db(ARANGO_DB);
     }
 
-    private static ArangoDatabase getDatabase() {
+    public static ArangoDatabase getDatabase() {
         if (!arangoDatabase.exists()) {
             try {
                 arangoDB.createDatabase(ARANGO_DB);

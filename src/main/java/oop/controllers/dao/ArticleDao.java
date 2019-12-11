@@ -38,13 +38,23 @@ public class ArticleDao extends Dao<Article> {
 
     @Override
     public Article get(String id) throws RuntimeException {
-        BaseDocument document = this.collection.getDocument(id, BaseDocument.class);
+        BaseDocument document;
+        try {
+            document = this.collection.getDocument(id, BaseDocument.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while reading from database!", e);
+        }
         return fromBaseDocument(document);
     }
 
     @Override
     public List<Article> get(List<String> ids) throws RuntimeException {
-        MultiDocumentEntity<BaseDocument> documents = this.collection.getDocuments(ids, BaseDocument.class);
+        MultiDocumentEntity<BaseDocument> documents;
+        try {
+            documents = this.collection.getDocuments(ids, BaseDocument.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while reading from database!", e);
+        }
         List<Article> results = new ArrayList<>(documents.getDocuments().size());
         for (BaseDocument document : documents.getDocuments()) {
             results.add(this.fromBaseDocument(document));
@@ -54,7 +64,11 @@ public class ArticleDao extends Dao<Article> {
 
     @Override
     public void insert(Article value) throws RuntimeException {
-        this.collection.insertDocument(fromArticle(value));
+        try {
+            this.collection.insertDocument(fromArticle(value));
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while writing to database!", e);
+        }
     }
 
     @Override
@@ -63,12 +77,20 @@ public class ArticleDao extends Dao<Article> {
         for (Article article : values) {
             documents.add(fromArticle(article));
         }
-        this.collection.insertDocuments(documents);
+        try {
+            this.collection.insertDocuments(documents);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while writing to database!", e);
+        }
     }
 
     @Override
     public void replace(String id, Article value) throws RuntimeException {
-        this.collection.replaceDocument(id, fromArticle(value));
+        try {
+            this.collection.replaceDocument(id, fromArticle(value));
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while writing to database!", e);
+        }
     }
 
     @Override
@@ -77,12 +99,20 @@ public class ArticleDao extends Dao<Article> {
         for (Article article : values) {
             documents.add(fromArticle(article));
         }
-        this.collection.replaceDocuments(documents);
+        try {
+            this.collection.replaceDocuments(documents);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while writing to database!", e);
+        }
     }
 
     @Override
     public void delete(String id) throws RuntimeException {
-        this.collection.deleteDocument(id);
+        try {
+            this.collection.deleteDocument(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while deleting from database", e);
+        }
     }
 
     @Override
@@ -93,7 +123,11 @@ public class ArticleDao extends Dao<Article> {
             document.setKey(id);
             documents.add(document);
         }
-        this.collection.deleteDocuments(documents);
+        try {
+            this.collection.deleteDocuments(documents);    
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while deleting from database", e);
+        }
     }
 
     private Article fromBaseDocument(BaseDocument baseDocument) {
