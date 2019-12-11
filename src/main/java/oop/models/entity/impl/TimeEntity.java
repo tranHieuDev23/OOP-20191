@@ -1,6 +1,6 @@
 package oop.models.entity.impl;
 
-import java.util.Date;
+import java.time.Instant;
 
 import oop.models.entity.Entity;
 
@@ -8,7 +8,7 @@ public class TimeEntity implements Entity {
     private String id;
     private String label;
     private String content;
-    private Date time;
+    private Instant time;
 
     public String getId() {
         return id;
@@ -34,11 +34,11 @@ public class TimeEntity implements Entity {
         this.content = content;
     }
 
-    public Date getTime() {
+    public Instant getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Instant time) {
         this.time = time;
     }
 }

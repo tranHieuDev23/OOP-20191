@@ -1,8 +1,6 @@
 package oop.controllers.dao;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -102,14 +100,9 @@ public class ArticleDao extends Dao<Article> {
         if (baseDocument == null)
             return null;
         Map<String, Object> propertiesMap = baseDocument.getProperties();
-        DateFormat dateFormat = new SimpleDateFormat();
         Article result = new Article();
         result.setId(baseDocument.getKey());
-        try {
-            result.setPublishedDate(dateFormat.parse((String) propertiesMap.get("PublishedDate")));
-        } catch (ParseException e) {
-            result.setPublishedDate(null);
-        }
+        result.setPublishedDate(Instant.parse((String) propertiesMap.get("PublishedDate")));
         result.setUrl((String) propertiesMap.get("Url"));
         Object extractedFactIdsList = propertiesMap.get("ExtractedFactIds");
         if (extractedFactIdsList instanceof List<?>) {
@@ -127,7 +120,7 @@ public class ArticleDao extends Dao<Article> {
         BaseDocument result = new BaseDocument();
         result.setKey(article.getId());
         result.getProperties().put("Id", article.getId());
-        result.getProperties().put("PublishedDate", article.getPublishedDate());
+        result.getProperties().put("PublishedDate", article.getPublishedDate().toString());
         result.getProperties().put("Url", article.getUrl());
         List<String> extractedFactIds = new ArrayList<>();
         for (Fact<? extends Entity, ? extends Entity> fact : article.getExtractedFacts()) {

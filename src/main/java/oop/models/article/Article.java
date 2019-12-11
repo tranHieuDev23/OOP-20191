@@ -1,6 +1,6 @@
 package oop.models.article;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 import oop.models.entity.Entity;
@@ -9,7 +9,7 @@ import oop.models.fact.Fact;
 public class Article {
     private String id;
     private String url;
-    private Date publishedDate;
+    private Instant publishedDate;
     private List<Fact<? extends Entity, ? extends Entity>> extractedFacts;
 
     public String getId() {
@@ -28,11 +28,11 @@ public class Article {
         this.url = url;
     }
 
-    public Date getPublishedDate() {
+    public Instant getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(Date publishedDate) {
+    public void setPublishedDate(Instant publishedDate) {
         this.publishedDate = publishedDate;
     }
 

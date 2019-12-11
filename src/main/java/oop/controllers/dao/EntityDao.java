@@ -2,8 +2,7 @@ package oop.controllers.dao;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -188,23 +187,14 @@ public class EntityDao extends Dao<Entity> {
             result.setBaseOfOperation((String) propertiesMap.get("BaseOfOperation"));
             return result;
         }
-        DateFormat dateFormat = new SimpleDateFormat();
         if (PERSON_CLASS_NAME.equals(className)) {
             PersonEntity result = new PersonEntity();
             result.setId((String) propertiesMap.get("Id"));
             result.setContent((String) propertiesMap.get("Content"));
             result.setLabel((String) propertiesMap.get("Label"));
             result.setOccupation((String) propertiesMap.get("Occupation"));
-            try {
-                result.setBirthday(dateFormat.parse((String) propertiesMap.get("Birthday")));
-            } catch (Exception e) {
-                result.setBirthday(null);
-            }
-            try {
-                result.setDateOfDeath(dateFormat.parse((String) propertiesMap.get("DateOfDeath")));
-            } catch (Exception e) {
-                result.setDateOfDeath(null);
-            }
+            result.setBirthday(Instant.parse((String) propertiesMap.get("Birthday")));
+            result.setDateOfDeath(Instant.parse((String) propertiesMap.get("DateOfDeath")));
             return result;
         }
         if (TIME_CLASS_NAME.equals(className)) {
@@ -212,11 +202,7 @@ public class EntityDao extends Dao<Entity> {
             result.setId((String) propertiesMap.get("Id"));
             result.setContent((String) propertiesMap.get("Content"));
             result.setLabel((String) propertiesMap.get("Label"));
-            try {
-                result.setTime(dateFormat.parse((String) propertiesMap.get("Time")));
-            } catch (Exception e) {
-                result.setTime(null);
-            }
+            result.setTime(Instant.parse((String) propertiesMap.get("Time")));
             return result;
         }
         return null;
@@ -233,7 +219,7 @@ public class EntityDao extends Dao<Entity> {
                 continue;
             String property = methodName.substring(3);
             try {
-                propertiesMap.put(property, method.invoke(entity));
+                propertiesMap.put(property, method.invoke(entity).toString());
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             } catch (IllegalArgumentException e) {

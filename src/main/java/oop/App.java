@@ -1,7 +1,7 @@
 package oop;
 
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import oop.controllers.dao.ArticleDao;
@@ -32,16 +32,16 @@ public class App {
         son.setId("1");
         son.setLabel("Son");
         son.setContent("Information about the son");
-        son.setBirthday(new Date());
-        son.setDateOfDeath(new Date());
+        son.setBirthday(Instant.now());
+        son.setDateOfDeath(Instant.now());
         son.setOccupation("A job");
 
         PersonEntity father = new PersonEntity();
         father.setId("2");
         father.setLabel("Father");
         father.setContent("Information about the father");
-        father.setBirthday(new Date());
-        father.setDateOfDeath(new Date());
+        father.setBirthday(Instant.now());
+        father.setDateOfDeath(Instant.now());
         father.setOccupation("A bigger job");
 
         MeetingFact fact = new MeetingFact();
@@ -55,7 +55,7 @@ public class App {
 
         Article article = new Article();
         article.setId("1");
-        article.setPublishedDate(new Date());
+        article.setPublishedDate(Instant.now());
         article.setUrl("https://facebook.com");
         article.setExtractedFacts(facts);
 

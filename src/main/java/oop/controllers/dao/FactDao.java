@@ -250,7 +250,7 @@ public class FactDao extends Dao<Fact<? extends Entity, ? extends Entity>> {
                 } else if ("getObject".equals(methodName)) {
                     propertiesMap.put("ObjectId", ((Entity) method.invoke(fact)).getId());
                 } else
-                    propertiesMap.put(property, method.invoke(fact));
+                    propertiesMap.put(property, method.invoke(fact).toString());
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             } catch (IllegalArgumentException e) {

@@ -1,6 +1,6 @@
 package oop.models.entity.impl;
 
-import java.util.Date;
+import java.time.Instant;
 
 import oop.models.entity.subject.CancellationSubjectEntity;
 import oop.models.entity.subject.ObjectionSubjectEntity;
@@ -12,8 +12,8 @@ public class PersonEntity
     private String id;
     private String label;
     private String content;
-    private Date birthday;
-    private Date dateOfDeath;
+    private Instant birthday;
+    private Instant dateOfDeath;
     private String occupation;
 
     public String getId() {
@@ -48,19 +48,19 @@ public class PersonEntity
         this.occupation = occupation;
     }
 
-    public Date getBirthday() {
+    public Instant getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(Instant birthday) {
         this.birthday = birthday;
     }
 
-    public Date getDateOfDeath() {
+    public Instant getDateOfDeath() {
         return dateOfDeath;
     }
 
-    public void setDateOfDeath(Date dateOfDeath) {
+    public void setDateOfDeath(Instant dateOfDeath) {
         this.dateOfDeath = dateOfDeath;
     }
 }
