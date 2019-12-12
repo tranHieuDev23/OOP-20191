@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.arangodb.ArangoCursor;
 import com.arangodb.entity.BaseDocument;
 import com.arangodb.entity.MultiDocumentEntity;
 
@@ -38,7 +39,7 @@ import oop.models.fact.impl.SupportFact;
 import oop.models.fact.impl.TensionFact;
 
 public class FactDao extends Dao<Fact<? extends Entity, ? extends Entity>> {
-    private static final String ENTITY_COLLECTION_NAME = "FACTS";
+    private static final String FACT_COLLECTION_NAME = "FACTS";
     private static final String AGREEMENT_CLASS_NAME = AgreementFact.class.getTypeName();
     private static final String ANNOUNCING_CLASS_NAME = AnnouncingFact.class.getTypeName();
     private static final String ATTENDING_CLASS_NAME = AttendingFact.class.getTypeName();
@@ -54,7 +55,7 @@ public class FactDao extends Dao<Fact<? extends Entity, ? extends Entity>> {
     private EntityDao entityDao;
 
     private FactDao() {
-        super(ENTITY_COLLECTION_NAME);
+        super(FACT_COLLECTION_NAME);
         this.entityDao = EntityDao.getInstance();
     }
 
@@ -93,6 +94,24 @@ public class FactDao extends Dao<Fact<? extends Entity, ? extends Entity>> {
         List<Fact<? extends Entity, ? extends Entity>> results = new ArrayList<>(documents.getDocuments().size());
         for (BaseDocument document : documents.getDocuments()) {
             results.add(this.fromBaseDocument(document));
+        }
+        return results;
+    }
+
+    @Override
+    public List<Fact<? extends Entity, ? extends Entity>> getAll() throws RuntimeException {
+        ArangoCursor<BaseDocument> cursor; 
+        try {
+            cursor = getDatabase().query("FOR item IN " + FACT_COLLECTION_NAME + " RETURN item", BaseDocument.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while reading from database!", e);
+        }
+        List<Fact<? extends Entity, ? extends Entity>> results = new ArrayList<>();
+        for(BaseDocument document : cursor) {
+            Fact<? extends Entity, ? extends Entity> fact = fromBaseDocument(document);
+            if (fact != null) {
+                results.add(fact);
+            }
         }
         return results;
     }

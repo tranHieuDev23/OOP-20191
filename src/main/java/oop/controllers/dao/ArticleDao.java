@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.arangodb.ArangoCursor;
 import com.arangodb.entity.BaseDocument;
 import com.arangodb.entity.MultiDocumentEntity;
 
@@ -13,12 +14,12 @@ import oop.models.entity.Entity;
 import oop.models.fact.Fact;
 
 public class ArticleDao extends Dao<Article> {
-    private static final String COLLECTION_NAME = "ARTICLE";
+    private static final String ARTICLE_COLLECTION_NAME = "ARTICLE";
 
     private FactDao factDao;
 
     private ArticleDao() {
-        super(COLLECTION_NAME);
+        super(ARTICLE_COLLECTION_NAME);
         this.factDao = FactDao.getInstance();
     }
 
@@ -58,6 +59,24 @@ public class ArticleDao extends Dao<Article> {
         List<Article> results = new ArrayList<>(documents.getDocuments().size());
         for (BaseDocument document : documents.getDocuments()) {
             results.add(this.fromBaseDocument(document));
+        }
+        return results;
+    }
+
+    @Override
+    public List<Article> getAll() throws RuntimeException {
+        ArangoCursor<BaseDocument> cursor; 
+        try {
+            cursor = getDatabase().query("FOR item IN " + ARTICLE_COLLECTION_NAME + " RETURN item", BaseDocument.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while reading from database!", e);
+        }
+        List<Article> results = new ArrayList<>();
+        for(BaseDocument document : cursor) {
+            Article article = fromBaseDocument(document);
+            if (article != null) {
+                results.add(article);
+            }
         }
         return results;
     }

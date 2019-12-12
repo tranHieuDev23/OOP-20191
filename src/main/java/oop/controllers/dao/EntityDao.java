@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.arangodb.ArangoCursor;
 import com.arangodb.entity.BaseDocument;
 import com.arangodb.entity.MultiDocumentEntity;
 
@@ -70,6 +71,24 @@ public class EntityDao extends Dao<Entity> {
         List<Entity> results = new ArrayList<>(documents.getDocuments().size());
         for (BaseDocument document : documents.getDocuments()) {
             results.add(this.fromBaseDocument(document));
+        }
+        return results;
+    }
+
+    @Override
+    public List<Entity> getAll() throws RuntimeException {
+        ArangoCursor<BaseDocument> cursor; 
+        try {
+            cursor = getDatabase().query("FOR item IN " + ENTITY_COLLECTION_NAME + " RETURN item", BaseDocument.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Exception happened while reading from database!", e);
+        }
+        List<Entity> results = new ArrayList<>();
+        for(BaseDocument document : cursor) {
+            Entity article = fromBaseDocument(document);
+            if (article != null) {
+                results.add(article);
+            }
         }
         return results;
     }

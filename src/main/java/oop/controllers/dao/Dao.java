@@ -60,6 +60,8 @@ public abstract class Dao<T> {
 
     public abstract List<T> get(List<String> id) throws RuntimeException;
 
+    public abstract List<T> getAll() throws RuntimeException;
+
     public abstract void insert(T value) throws RuntimeException;
 
     public abstract void insert(List<T> values) throws RuntimeException;

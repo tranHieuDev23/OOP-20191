@@ -71,16 +71,16 @@ public class App {
         List<String> ids = new ArrayList<>();
         ids.add("1");
         ids.add("2");
-        List<Entity> results = entityDao.get(ids);
+        List<Entity> results = entityDao.getAll();
         System.out.println(results);
 
-        Fact<? extends Entity, ? extends Entity> resultFact = factDao.get(fact.getId());
+        Fact<? extends Entity, ? extends Entity> resultFact = factDao.getAll().get(0);
         System.out.println(resultFact.getId());
         System.out.println(resultFact.getOriginId());
         System.out.println(resultFact.getObject());
         System.out.println(resultFact.getSubject());
 
-        Article resultArticle = articleDao.get("1");
+        Article resultArticle = articleDao.getAll().get(0);
         System.out.println(resultArticle.getId());
         System.out.println(resultArticle.getUrl());
         System.out.println(resultArticle.getPublishedDate());
